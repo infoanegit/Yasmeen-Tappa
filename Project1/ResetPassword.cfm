@@ -25,6 +25,23 @@
     <div class="container mt-4">
         <form action="" name="myForm" method="post" id="myForm" class="needs-validation" novalidate>
             <div class="container mt4">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <nav class="navbar-expand-sm bg-primary">
+                            <div class="container-fluid ">
+                                <ul class="navbar-nav justify-content-end">
+                                    <li class="nav-item">
+                                        <a class="nav-link" href="http://127.0.0.1:8500/project1/">
+                                            <button type="button" id="logoutbtn" name="logout" value="logout" class="btn btn-primary" >logout</button>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            <div class="container mt4">
                     <div class="row">
                         <div class="col-sm-4">
                             <h3 align="center">Password Reset Form</h3>                  

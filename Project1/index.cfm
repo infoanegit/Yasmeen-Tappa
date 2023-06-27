@@ -16,16 +16,20 @@
 <body>
     <div class="container mt-4">
         <form action="" name="myForm" method="post" id="myForm" class="needs-validation" novalidate>
-            <div class="container">
-                <nav class="navbar navbar-expand-sm bg-primary">
-                    <div class="container-fluid">
-                        <ul class="navbar-nav">
-                        <li class="nav-item">
-                        <h4 class = "text-white">Welcome to login page!</h4>
-                        </li>
-                        </ul>
+            <div class="container mt4">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <nav class="navbar navbar-expand-sm bg-primary">
+                            <div class="container-fluid">
+                                <ul class="navbar-nav">
+                                    <li class="nav-item">
+                                        <h4 class = "text-white">Welcome to login page!</h4>
+                                    </li>
+                                </ul>
+                            </div>
+                        </nav>
                     </div>
-                </nav>
+                </div>
             </div>
             <div class="container mt4">
                     <div class="row">
