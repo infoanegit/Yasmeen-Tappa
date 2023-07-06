@@ -58,13 +58,12 @@
                 </div>
             </div>
 
-            <div class="login-container border-white">
-                <p>Hello</p>
-                <button type="submit" ><a  href="http://127.0.0.1:8500/project1/EmployeeForm.cfm">sign in</a></button>
-                <button type="submit" ><a  href="http://127.0.0.1:8500/project1/index.cfm">Login</a></button>
-                <p class="account">Account & Lists</p>
-            </div>
-
+            <div class="login-container">
+                <button type="button" class= "btn btn-secondary"><a  href="http://127.0.0.1:8500/project1/EmployeeForm.cfm">sign in</a></button>
+            </div>  &nbsp;
+             <div class="signin-container text-white">  
+                <button type="button" class= "btn btn-secondary"><a  href="http://127.0.0.1:8500/project1/index.cfm">Login</a></button>
+               </div>
             <div class="return-order-container">
                 <p>Returns
                 <div class="order">& Orders</div>

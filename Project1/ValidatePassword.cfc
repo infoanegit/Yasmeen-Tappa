@@ -21,7 +21,9 @@
         <!--- <cfdump var="#abc#"> --->
         <!---<cfdump var = "#abc#"> --->
         <cfif abc.recordCount GT 0>
-                <cfoutput><script> alert("This Username and Password already exist.") </script></cfoutput>
+                <cfoutput>
+                    <script> alert("This Username and Password already exist.") </script>
+                </cfoutput>
 
         <!--- <cflocation url = "http://127.0.0.1:8500/project1/Amazonpage.cfm">  --->
         <cfelse>
@@ -45,50 +47,50 @@
                     <cfqueryparam value = "#arguments.Zipcode#" cfsqltype="cf_sql_varchar">,
                     <cfqueryparam value = "#key#" cfsqltype="cf_sql_varchar">,
                     <cfqueryparam value = "#arguments.Department#" cfsqltype="cf_sql_varchar">,
-                     <cfqueryparam value = "1" cfsqltype="cf_sql_Integer">
+                    <cfqueryparam value = "1" cfsqltype="cf_sql_Integer">
                 
                 )
             </cfquery>
-            <cfoutput><script> alert("Data Insert Successfully.")</script></cfoutput>
+            <cfreturn 1>
         </cfif>
     </cffunction>
 
      <!---Login page--->
     <cffunction name = "LoginPassword">
-    <cfargument  name = "emailId">
-    <cfargument  name = "Password">
-    <cfquery name="getEmpInfo" datasource="DemoTwo">
-        SELECT EmpId, EmailId, Password, E_key, is_admin, Firstname 
-        FROM employeedetails
-        WHERE EmailId = <cfqueryparam value = "#arguments.emailId#" cfsqltype="cf_sql_varchar"> and is_Active = 1
-    </cfquery>
-    <cfif getEmpInfo.is_admin eq "admin">
-        <cfset session.user = getEmpInfo.is_admin>
-    <cfelse> 
-        <cfset session.user = getEmpInfo.is_admin>  
-        <cfset session.EmpId = getEmpInfo.EmpId>    
-    </cfif>    
-<cfdump var="#session.user#">
-     <cfif getEmpInfo.recordCount GT 0>
-        <cfset decrypted = decrypt("#getEmpInfo.Password#", "#getEmpInfo.E_key#", "AES", "Base64")>
-    </cfif>
+        <cfargument  name = "emailId">
+        <cfargument  name = "Password">
+        <cfquery name="getEmpInfo" datasource="DemoTwo">
+            SELECT EmpId, EmailId, Password, E_key, is_admin, Firstname 
+            FROM employeedetails
+            WHERE EmailId = <cfqueryparam value = "#arguments.emailId#" cfsqltype="cf_sql_varchar"> and is_Active = 1
+        </cfquery>
+        <cfif getEmpInfo.is_admin eq "admin">
+            <cfset session.user = getEmpInfo.is_admin>
+        <cfelse> 
+            <cfset session.user = getEmpInfo.is_admin>  
+            <cfset session.EmpId = getEmpInfo.EmpId>    
+        </cfif>    
+        <cfdump var="#session.user#">
+        <cfif getEmpInfo.recordCount GT 0>
+            <cfset decrypted = decrypt("#getEmpInfo.Password#", "#getEmpInfo.E_key#", "AES", "Base64")>
+        </cfif>
 
-<!---<cfdump var="#decrypted#" abort> --->
-    <cfif getEmpInfo.recordCount eq 0>
-        <cfoutput>
-            <script>
-                alert("This EmailId does not exist");
-            </script>
-        </cfoutput>
-    <cfelseif arguments.Password eq decrypted >
-        <cflocation url = "http://127.0.0.1:8500/project1/EmployeeViewPage.cfm">   
-    <cfelse>
-        <cfoutput>
-            <script>
-                alert("Please Enter Valid EmailId and Password!");
-            </script>
-        </cfoutput>
-    </cfif>
+        <!---<cfdump var="#decrypted#" abort> --->
+        <cfif getEmpInfo.recordCount eq 0>
+            <cfoutput>
+                <script>
+                    alert("This EmailId does not exist");
+                </script>
+            </cfoutput>
+        <cfelseif arguments.Password eq decrypted >
+            <cflocation url = "http://127.0.0.1:8500/Yasmeen-Tappa/Project1/EmployeeViewPage.cfm">   
+        <cfelse>
+            <cfoutput>
+                <script>
+                    alert("Please Enter Valid EmailId and Password!");
+                </script>
+            </cfoutput>
+        </cfif>
     </cffunction>
 
 
@@ -123,13 +125,13 @@
         <cfelse> 
             <cfoutput>
                 <script>
-                    alert("User Cannot delete the record")
+                    alert("User Cannot be delete the record")
                 </script>
             </cfoutput>      
         </cfif>
     </cffunction>
 
-<!--- display the active and in activ record--->
+    <!--- display the active and in activ record--->
     <cffunction  name = "displayRecords" access="public">
         <cfquery name="myQuery" datasource="DemoTwo">
             SELECT *
@@ -139,41 +141,41 @@
         <cfreturn myQuery>
     </cffunction>    
 
-<!---ResetPassword--->
-<cffunction name = "resetpassword" access="public">
-    <cfargument name = "emailId">
-    <cfargument name = "Password">
-      <cfquery name="getUserPassword" datasource="DemoTwo">
-            SELECT Password, EmailId
-            FROM employeedetails
-            WHERE EmailId = <cfqueryparam value="#arguments.emailId#" cfsqltype="cf_sql_varchar">
-        </cfquery>
-<!---         <cfdump  var="#getUserPassword.recordcount#" abort> --->
-    <cfif getUserPassword.recordcount GT 0>
-            <cfset key = generateSecretKey('AES')>
-            <cfset encrypted = encrypt("#arguments.Password#", key, "AES", "Base64")>
-        <cfquery name="updatePassword" datasource="DemoTwo">
-            UPDATE employeedetails
-            SET Password = <cfqueryparam value="#encrypted#" cfsqltype="cf_sql_varchar">,
-                E_key = <cfqueryparam value = "#key#" cfsqltype="cf_sql_varchar">
-            WHERE EmailId = <cfqueryparam value="#arguments.emailId#" cfsqltype="cf_sql_varchar">
-        </cfquery>
-        <cfoutput>
-            <script>
-                alert("Password Change Successfully")
-            </script>
-        </cfoutput>
-    <cfelse>  
-        <cfoutput>
-            <script>
-                alert("Please Enter correct EmailId and Password!")
-            </script>
-        </cfoutput>   
-    </cfif>  
-</cffunction>
+    <!---ResetPassword--->
+    <cffunction name = "resetpassword" access="public">
+        <cfargument name = "emailId">
+        <cfargument name = "Password">
+        <cfquery name="getUserPassword" datasource="DemoTwo">
+                SELECT Password, EmailId
+                FROM employeedetails
+                WHERE EmailId = <cfqueryparam value="#arguments.emailId#" cfsqltype="cf_sql_varchar">
+            </cfquery>
+    <!---         <cfdump  var="#getUserPassword.recordcount#" abort> --->
+        <cfif getUserPassword.recordcount GT 0>
+                <cfset key = generateSecretKey('AES')>
+                <cfset encrypted = encrypt("#arguments.Password#", key, "AES", "Base64")>
+            <cfquery name="updatePassword" datasource="DemoTwo">
+                UPDATE employeedetails
+                SET Password = <cfqueryparam value="#encrypted#" cfsqltype="cf_sql_varchar">,
+                    E_key = <cfqueryparam value = "#key#" cfsqltype="cf_sql_varchar">
+                WHERE EmailId = <cfqueryparam value="#arguments.emailId#" cfsqltype="cf_sql_varchar">
+            </cfquery>
+            <cfoutput>
+                <script>
+                    alert("Password Change Successfully")
+                </script>
+            </cfoutput>
+        <cfelse>  
+            <cfoutput>
+                <script>
+                    alert("Please Enter correct EmailId and Password!")
+                </script>
+            </cfoutput>   
+        </cfif>  
+    </cffunction>
 
 <!---select Employee details--->
- <cffunction name = "selectdata" access="public">
+    <cffunction name = "selectdata" access="public">
     <cfargument  name = "EmpId">
         <cfquery datasource = "DemoTwo" name = "qselectdata">
             SELECT *
@@ -214,10 +216,15 @@
             WHERE EmpId='#arguments.EmpId#'
         </cfquery>
         <cfoutput>
-        <script> 
-            alert("Data Update Successfully.")
-        </script>
-   </cfoutput>
+            <script> 
+                alert("Data Update Successfully.")
+            </script>
+        </cfoutput>
+    <meta http-equiv="refresh" content="0;url=http://127.0.0.1:8500/Yasmeen-Tappa/Project1/EmployeeViewPage.cfm">
+    <!--- Perform your update here --->
+    <cfheader statuscode="302" statustext="Found">
+    <cfheader name="Location" value="http://127.0.0.1:8500/Yasmeen-Tappa/Project1/EmployeeViewPage.cfm">
+    <!---<cflocation url = "http://127.0.0.1:8500/Yasmeen-Tappa/Project1/EmployeeEdit.cfm?id=#arguments.EmpId#">--->
     </cffunction>
 
     <cffunction  name = "displayEmpInfo" access="public"> 
@@ -228,7 +235,6 @@
         </cfquery>
         <cfreturn local.qrydisplayEmpInfo>        
     </cffunction>
-
 
     <cffunction  name = "validateLoginPassword" access="public">
         <cfargument  name = "emailId">
@@ -253,7 +259,7 @@
                     <cfqueryparam value = "#encrypt_Password#" cfsqltype="cf_sql_varchar">
                 )
             </cfquery>
-        <cflocation  url="http://127.0.0.1:8500/project1/Amazonpage.cfm"> 
+        <cflocation  url="http://127.0.0.1:8500/Yasmeen-Tappa/Project1/Amazonpage.cfm"> 
         <cfelse>
         <cfoutput>INVALID EmailId AND Password</cfoutput>
         </cfif>
@@ -266,5 +272,57 @@
             FROM employeedetails
         </cfquery>
        <cfreturn local.qrygetEmpInfo>
+    </cffunction>
+
+    <!--- Candidate Details --->
+    <cffunction  name = "candidateinfo" access="public">
+        <cfargument  name = "firstname">
+        <cfargument  name = "lastname">
+        <cfargument  name = "emailId">
+        <cfargument  name = "Password">
+        <cfargument  name = "Dateofbirth">
+        <cfargument  name = "Phonenumber"> 
+        <cfargument  name = "Address1">
+        <cfargument  name = "Address2">
+        <cfargument  name = "City">           
+        <cfargument  name = "State">
+        <cfargument  name = "Zipcode">
+        <cfargument  name = "Qualification">
+        <cfarguments name = "other_qualification">
+        <cfargument  name = "yearofpassing">
+        <cfargument  name = "image">
+        
+    
+        <cfquery datasource = "DemoTwo" name="candidateinfo">
+            SELECT Email
+            FROM Candidateinfodetails
+            WHERE Email = <cfqueryparam value="#emailId#" cfsqltype="cf_sql_varchar">
+        </cfquery>
+        <cfif abc.recordCount GT 0>
+                <cfoutput>
+                    <script> alert("This Username already exist.") </script>
+                </cfoutput>
+        <cfelse>
+            <cfquery datasource="DemoTwo" name="candidateGETinfo">
+                insert into Candidateinfodetails(Firstname, Lastname, Gender, Email, Password, DOB, Phonenum, Address1, Address2, City, State, Zipcode, Qualification, other_qualification, YearOfPassing, image)
+                values
+                (
+                    <cfqueryparam value = "#arguments.firstname#" cfsqltype="cf_sql_varchar">,
+                    <cfqueryparam value = "#arguments.lastname#" cfsqltype="cf_sql_varchar">,
+                    <cfqueryparam value = "#arguments.emailId#" cfsqltype="cf_sql_varchar">,
+                    <cfqueryparam value = "#arguments.Dateofbirth#" cfsqltype="cf_sql_date">,
+                    <cfqueryparam value = "#arguments.Phonenumber#" cfsqltype="cf_sql_integer">,
+                    <cfqueryparam value = "#arguments.Address1#" cfsqltype="cf_sql_varchar">,
+                    <cfqueryparam value = "#arguments.Address2#" cfsqltype="cf_sql_varchar">,
+                    <cfqueryparam value = "#arguments.City#" cfsqltype="cf_sql_varchar">,
+                    <cfqueryparam value = "#arguments.State#" cfsqltype="cf_sql_varchar">,
+                    <cfqueryparam value = "#arguments.Zipcode#" cfsqltype="cf_sql_integer">,
+                    <cfqueryparam value = "#arguments.Qualification#" cfsqltype="cf_sql_varchar">,
+                    <cfqueryparam value = "#arguments.other_qualification#" cfsqltype="cf_sql_varchar">,
+                    <cfqueryparam value = "#arguments.yearofpassing#" cfsqltype="cf_sql_date">,
+                    <cfqueryparam value = "#arguments.image#" cfsqltype="cf_sql_varchar">
+                )
+            </cfquery>    
+        </cfif>
     </cffunction>
 </cfcomponent>

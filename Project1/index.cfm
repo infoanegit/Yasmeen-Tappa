@@ -17,21 +17,6 @@
     <div class="container mt-4">
         <form action="" name="myForm" method="post" id="myForm" class="needs-validation" novalidate>
             <div class="container mt4">
-                <div class="row">
-                    <div class="col-sm-6">
-                        <nav class="navbar navbar-expand-sm bg-primary">
-                            <div class="container-fluid">
-                                <ul class="navbar-nav">
-                                    <li class="nav-item">
-                                        <h4 class = "text-white">Welcome to login page!</h4>
-                                    </li>
-                                </ul>
-                            </div>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-            <div class="container mt4">
                     <div class="row">
                         <div class="col-sm-4">
                             <h3 align="center">Login Form</h3>                  
@@ -62,11 +47,11 @@
                 <div class="row">
                     <div class="col-sm-2">
                         <div class="form-group">
-                            <a href="http://127.0.0.1:8500/project1/ResetPassword.cfm" class="float-right">Forgot Password?</a>
+                            <a href="http://127.0.0.1:8500/Yasmeen-Tappa/Project1/ResetPassword.cfm" class="float-right">Forgot Password?</a>
                         </div>
                     </div>    
                     <div class="col-sm-2">
-                            <a href="http://127.0.0.1:8500/project1/EmployeeForm.cfm" class="float-right">Register</a>
+                            <a href="http://127.0.0.1:8500/Yasmeen-Tappa/Project1/EmployeeForm.cfm" class="float-right">Register</a>
                     </div>  
                     <div class= "col-sm-2">
                             <span class="float-end">
